@@ -184,10 +184,10 @@ export default function Register() {
       const response = await fetchData("auth/register", "POST", payload);
       const data = await response.json();
       console.log(data.message);
-
+      localStorage.setItem("user", JSON.stringify(payload));
       setRegisterMessage("✅ Registration successful! Redirecting...");
       setTimeout(() => {
-        window.location.href = "login.html";
+        window.location.href = "menu.html";
       }, 3000);
     } catch (err: unknown) {
       const error = err as HttpError;

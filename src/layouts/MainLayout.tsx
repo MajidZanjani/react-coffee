@@ -86,7 +86,7 @@ export default function MainLayout({
             register
           </a>
 
-          {/* needs improvement yet */}
+          {/* needs improvement for counter */}
           <a href="cart.html" className="cart-el">
             <div className="dis-icon"></div>
             <div className="cart-icon">
@@ -100,16 +100,16 @@ export default function MainLayout({
                 <path
                   d="M16.0942 8.36255L17.1455 15.1959C17.3319 16.4074 16.3945 17.5 15.1688 17.5H4.83122C3.60545 17.5 2.66809 16.4074 2.85448 15.1959L3.90576 8.36255C4.05586 7.38689 4.89536 6.66667 5.88251 6.66667H14.1175C15.1046 6.66667 15.9441 7.38689 16.0942 8.36255Z"
                   stroke="#403F3D"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M11.6668 4.16667C11.6668 3.24619 10.9206 2.5 10.0002 2.5C9.07969 2.5 8.3335 3.24619 8.3335 4.16667"
                   stroke="#403F3D"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </div>
@@ -128,14 +128,13 @@ export default function MainLayout({
           </Link>
         </div>
 
-        {/* burger menu, needs implementation yet */}
+        {/* burger menu, needs style improvement */}
         <div className="md:hidden flex justify-end z-999">
           <button
             aria-label="Menu"
             onClick={toggleMenu}
             className="relative z-50 w-12 h-12 flex items-center justify-center rounded-full border border-gray-700 bg-background-body shadow-md transition-all duration-300"
           >
-            {/* Burger Lines */}
             <span
               className={`absolute block h-0.5 w-6 bg-gray-800 transition-all duration-300 ${
                 menuOpen ? "rotate-45 translate-y-px" : "-translate-y-2"
@@ -148,7 +147,6 @@ export default function MainLayout({
             ></span>
           </button>
 
-          {/* Full-screen menu */}
           <nav
             className={`fixed inset-0 bg-background-body flex flex-col items-center justify-center gap-6 text-lg font-semibold text-gray-800 transition-all duration-500 ${
               menuOpen
