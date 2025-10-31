@@ -24,13 +24,12 @@ export default function MainLayout({
   const location = useLocation();
   const [isMenupage, setIsMenupage] = useState(false);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   useEffect(() => {
     setIsMenupage(location.pathname.endsWith("menu.html"));
   }, [location.pathname]);
-
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
     <div className="min-h-screen flex flex-col bg-text-light">
@@ -113,7 +112,6 @@ export default function MainLayout({
                 />
               </svg>
             </div>
-            <div className="cart-item-count"></div>
           </a>
         </div>
 
