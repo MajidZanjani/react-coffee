@@ -34,6 +34,21 @@ interface Order {
   totalPrice: number;
 }
 
+function itemRemove(cartItem: CartItem) {
+  const storedCart = localStorage.getItem("cart");
+  const cart: CartItem[] | null = storedCart ? JSON.parse(storedCart) : null;
+  console.log(cartItem);
+  const newCart = JSON.stringify(
+    cart?.filter((item) => item.cartId != cartItem.cartId)
+  );
+  if (newCart?.length != 0) {
+    localStorage.setItem("cart", newCart);
+  } else {
+    localStorage.removeItem("cart");
+  }
+  window.location.reload();
+}
+
 async function orderCart(discountTotal: number): Promise<void> {
   const items: OrderItem[] = [];
   const storedCart = localStorage.getItem("cart");
@@ -99,55 +114,59 @@ export default function Cart() {
         Order placed successfully! Thank you for your purchase.
       </div>
 
-      <div className="min-h-48 flex flex-col w-full mb-6 lg:w-3/4">
+      <div className="min-h-48 flex flex-col w-full mb-6 gap-5 lg:w-3/4">
         {cart
           ? cart.map((item, index) => (
-              <div key={index} className="content-center">
-                <div className="flex gap-3 justify-self-start">
-                  <div className="self-center">
+              <div
+                key={index}
+                className="flex justify-between items-center w-full border-b border-border-light pb-4"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="group cursor-pointer hover:scale-110 transition-transform"
+                    id={item.cartId}
+                    onClick={() => itemRemove(item)}
+                  >
                     <svg
+                      className="w-6 h-6 stroke-[#403F3D] group-hover:stroke-red-700 transition-colors"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
-                      <path
-                        d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9"
-                        stroke="#403F3D"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M21 6H15.375M3 6H8.625M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6H15.375"
-                        stroke="#403F3D"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                      <path d="M20 9L18.005 20.3463C17.8369 21.3026 17.0062 22 16.0353 22H7.96474C6.99379 22 6.1631 21.3026 5.99496 20.3463L4 9" />
+                      <path d="M21 6H15.375M3 6H8.625M8.625 6V4C8.625 2.89543 9.52043 2 10.625 2H13.375C14.4796 2 15.375 2.89543 15.375 4V6M8.625 6H15.375" />
                     </svg>
                   </div>
+
                   <div className="w-32 h-32">
                     <img
                       className="rounded-2xl"
                       src={item.image}
-                      alt="item.name"
+                      alt={item.name}
                     />
                   </div>
-                  <div className="">
+
+                  <div>
                     <div>{item.name}</div>
-                    <div>
-                      {item.size}, {item.additives}
+                    <div className="text-sm">
+                      {item.size}, {item.additives.join(", ")}
                     </div>
                   </div>
                 </div>
-                <div className="grid justify-self-end">
+
+                <div className="flex flex-col justify-self-end">
                   <div>Price</div>
-                  <div className="flex gap-4 justify-self-end">
-                    {" "}
-                    <div className="font-bold">${item.discountPrice}</div>
-                    <div className="line-through text-gray-400">
+                  <div className="flex flex-col items-end">
+                    <div className="font-bold text-lg">
+                      ${item.discountPrice}
+                    </div>
+                    <div className="line-through text-text-accent">
                       ${item.price}
                     </div>
                   </div>
@@ -161,8 +180,10 @@ export default function Cart() {
         <div className="grid grid-cols-2">
           <div className="justify-self-start">Total:</div>
           <div className="justify-self-end">
-            <span className="px-4">${String(noramlTotal.toFixed(2))}</span>
-            <span className="">${String(discountTotal.toFixed(2))}</span>
+            <span className="px-4">${String(discountTotal.toFixed(2))}</span>
+            <span className="line-through text-text-accent">
+              ${String(noramlTotal.toFixed(2))}
+            </span>
           </div>
         </div>
 
@@ -209,7 +230,7 @@ export default function Cart() {
         </button>
         <button
           className={`w-sm border border-border-dark rounded-3xl p-2 transition-all duration-300 ease-in-out hover:bg-background-container hover:text-text-light ${
-            user ? "" : "hidden"
+            user && cart?.length != 0 ? "" : "hidden"
           }`}
           onClick={() => orderCart(discountTotal)}
         >
