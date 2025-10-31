@@ -37,7 +37,10 @@ export default function MainLayout({
         >
           <img src="/assets/images/logo.png" alt="logo" />
         </Link>
-        <div className="content-center grid grid-flow-col justify-items-center">
+        <div
+          id="main-menu"
+          className="hidden content-center md:grid grid-flow-col gap-2 justify-items-center"
+        >
           <a
             className="transition-all duration-400 ease-in-out hover:text-text-accent"
             href="#carousel"
@@ -78,14 +81,14 @@ export default function MainLayout({
           >
             register
           </a>
-        </div>
-        <div className="content-center grid grid-flow-col justify-items-end">
           <a
             className="transition-all duration-400 ease-in-out hover:text-text-accent"
             href="cart.html"
           >
             Cart
           </a>
+        </div>
+        <div className="hidden content-center md:grid grid-flow-col justify-items-end">
           <Link
             to="menu.html"
             className={`${
@@ -94,6 +97,9 @@ export default function MainLayout({
           >
             Menu
           </Link>
+        </div>
+        <div id="burger" className="flex md:hidden">
+          burger test
         </div>
       </header>
 
