@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { fetchData } from "../api/fetchData";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   id: number;
@@ -52,10 +53,11 @@ function itemRemove(cartItem: CartItem) {
 
 async function orderCart(
   discountTotal: number,
-  onSuccess: () => void
+  onSuccess: () => void,
+  onError: (msg: string) => void
 ): Promise<void> {
   const items: OrderItem[] = [];
-  const storedCart = localStorage.getItem("cart");
+  let storedCart = localStorage.getItem("cart");
   const cart: CartItem[] | null = storedCart ? JSON.parse(storedCart) : null;
 
   cart?.forEach((cartItem: CartItem) => {
@@ -83,21 +85,18 @@ async function orderCart(
       throw new Error(result.message || "Failed to place order");
     }
 
+    localStorage.removeItem("cart");
+    storedCart = localStorage.getItem("cart");
     onSuccess();
-    // localStorage.removeItem("cart");
-    // alert("Order placed successfully! Thank you for your purchase.");
-    // window.location.reload();
   } catch (err) {
-    alert(
-      err instanceof Error
-        ? err.message
-        : "Failed to place order. Please try again."
-    );
+    onError(err instanceof Error ? err.message : "Failed to place order");
   }
 }
 
 export default function Cart() {
   const [orderSuccess, setOrderSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
@@ -117,8 +116,20 @@ export default function Cart() {
     <div className="flex flex-col items-center justify-center text-sx sm:text-xl text-text-dark">
       <div className="text-5xl font-bold mb-8">Cart</div>
 
-      <div className={`${orderSuccess ? "block" : "hidden"}`}>
-        Order placed successfully! Thank you for your purchase.
+      <div className={`${orderSuccess || errorMessage ? "flex" : "hidden"}`}>
+        {orderSuccess && (
+          <div className="text-emerald-600 font-bold mt-16 flex flex-col items-center gap-4">
+            <span>
+              ✅ Order placed successfully! Thank you for your purchase.
+            </span>
+            <span>You will be directed to the menu page..</span>
+          </div>
+        )}
+        {errorMessage && (
+          <span className="text-amber-700 my-16">
+            ❌ Something wrong with the server. Please try again.
+          </span>
+        )}
       </div>
 
       <div className="min-h-48 flex flex-col w-full mb-6 gap-5 lg:w-3/4">
@@ -235,11 +246,27 @@ export default function Cart() {
         >
           Registration
         </button>
+
         <button
           className={`w-sm border border-border-dark rounded-3xl p-2 transition-all duration-300 ease-in-out hover:bg-background-container hover:text-text-light ${
-            user && cart?.length != 0 ? "" : "hidden"
+            user && cart?.length != 0 && storedCart ? "" : "hidden"
           }`}
-          onClick={() => orderCart(discountTotal, () => setOrderSuccess(true))}
+          onClick={() =>
+            orderCart(
+              discountTotal,
+              () => {
+                setOrderSuccess(true);
+                setErrorMessage("");
+                setTimeout(() => {
+                  navigate("/menu.html");
+                }, 4000);
+              },
+              (msg: string) => {
+                setErrorMessage(msg);
+                setOrderSuccess(false);
+              }
+            )
+          }
         >
           Confirm
         </button>

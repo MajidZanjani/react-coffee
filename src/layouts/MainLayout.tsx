@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Footer from "./Footer";
+import { useEffect, useState } from "react";
 
 interface User {
   id: number;
@@ -19,6 +20,13 @@ export default function MainLayout({
 }) {
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
+
+  const location = useLocation();
+  const [isMenupage, setIsMenupage] = useState(false);
+
+  useEffect(() => {
+    setIsMenupage(location.pathname.endsWith("menu.html"));
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col bg-text-light">
@@ -80,7 +88,9 @@ export default function MainLayout({
           </a>
           <Link
             to="menu.html"
-            className="transition-all duration-400 ease-in-out hover:text-text-accent"
+            className={`${
+              isMenupage ? "pointer-events-none text-gray-400" : ""
+            } transition-all duration-400 ease-in-out hover:text-text-accent`}
           >
             Menu
           </Link>
