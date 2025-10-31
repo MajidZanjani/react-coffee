@@ -1,8 +1,8 @@
-## React version of CoffeeHouse Project
+# React version of CoffeeHouse Project
 
-# Frameworks - Libraries
+## Frameworks - Libraries
 
-React
-React Router
-Vite
-TailwindCSS
+- React
+- React Router
+- Vite
+- TailwindCSS
