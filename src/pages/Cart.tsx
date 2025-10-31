@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { fetchData } from "../api/fetchData";
 
 interface User {
@@ -49,7 +50,10 @@ function itemRemove(cartItem: CartItem) {
   window.location.reload();
 }
 
-async function orderCart(discountTotal: number): Promise<void> {
+async function orderCart(
+  discountTotal: number,
+  onSuccess: () => void
+): Promise<void> {
   const items: OrderItem[] = [];
   const storedCart = localStorage.getItem("cart");
   const cart: CartItem[] | null = storedCart ? JSON.parse(storedCart) : null;
@@ -79,8 +83,9 @@ async function orderCart(discountTotal: number): Promise<void> {
       throw new Error(result.message || "Failed to place order");
     }
 
+    onSuccess();
     // localStorage.removeItem("cart");
-    alert("Order placed successfully! Thank you for your purchase.");
+    // alert("Order placed successfully! Thank you for your purchase.");
     // window.location.reload();
   } catch (err) {
     alert(
@@ -92,6 +97,8 @@ async function orderCart(discountTotal: number): Promise<void> {
 }
 
 export default function Cart() {
+  const [orderSuccess, setOrderSuccess] = useState(false);
+
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
 
@@ -110,7 +117,7 @@ export default function Cart() {
     <div className="flex flex-col items-center justify-center text-sx sm:text-xl text-text-dark">
       <div className="text-5xl font-bold mb-8">Cart</div>
 
-      <div className="hidden">
+      <div className={`${orderSuccess ? "block" : "hidden"}`}>
         Order placed successfully! Thank you for your purchase.
       </div>
 
@@ -232,7 +239,7 @@ export default function Cart() {
           className={`w-sm border border-border-dark rounded-3xl p-2 transition-all duration-300 ease-in-out hover:bg-background-container hover:text-text-light ${
             user && cart?.length != 0 ? "" : "hidden"
           }`}
-          onClick={() => orderCart(discountTotal)}
+          onClick={() => orderCart(discountTotal, () => setOrderSuccess(true))}
         >
           Confirm
         </button>
