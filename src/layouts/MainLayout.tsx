@@ -25,7 +25,14 @@ export default function MainLayout({
   const [isMenupage, setIsMenupage] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    if (!menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "scroll";
+    }
+  };
 
   useEffect(() => {
     setIsMenupage(location.pathname.endsWith("menu.html"));
@@ -86,8 +93,8 @@ export default function MainLayout({
           </a>
 
           {/* needs improvement for counter */}
-          <a href="cart.html" className="cart-el">
-            <div className="dis-icon"></div>
+          <a href="cart.html" className={`${!user ? "hidden" : ""}`}>
+            <div className="count-icon">{}</div>
             <div className="cart-icon">
               <svg
                 width="24"
@@ -112,6 +119,7 @@ export default function MainLayout({
                 />
               </svg>
             </div>
+            <div className="dis-icon"></div>
           </a>
         </div>
 
@@ -146,13 +154,13 @@ export default function MainLayout({
           </button>
 
           <nav
-            className={`fixed inset-0 bg-background-body flex flex-col items-center justify-center gap-6 text-lg font-semibold text-gray-800 transition-all duration-500 ${
+            className={`fixed inset-0 bg-background-body flex flex-col items-center gap-6 text-lg font-semibold text-gray-800 transition-all duration-500 ${
               menuOpen
                 ? "opacity-100 visible translate-x-0"
                 : "opacity-0 invisible translate-x-full"
             }`}
           >
-            <ul className="flex flex-col items-center gap-6">
+            <ul className="flex flex-col items-center mt-40 gap-6">
               <li>
                 <a href="#carousel" onClick={toggleMenu}>
                   Favorite coffee

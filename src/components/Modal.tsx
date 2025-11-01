@@ -90,6 +90,13 @@ export default function Modal({ id, onClose }: ModalProps) {
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [onClose]);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   // Show error modal on fetch errors
   if (!product)
     return (
