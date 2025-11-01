@@ -189,6 +189,7 @@ export default function Modal({ id, onClose }: ModalProps) {
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("updated cart: ", cart);
+    window.dispatchEvent(new Event("cartUpdated")); // updates cartSize dynamically
     onClose();
   };
 

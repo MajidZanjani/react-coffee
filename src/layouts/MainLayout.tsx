@@ -13,6 +13,17 @@ interface User {
   paymentMethod: string;
 }
 
+interface CartItem {
+  cartId: string;
+  id: number;
+  name: string;
+  price: string;
+  discountPrice: string;
+  size: string;
+  additives: string[];
+  image: string;
+}
+
 export default function MainLayout({
   children,
 }: {
@@ -20,9 +31,11 @@ export default function MainLayout({
 }) {
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
-
   const location = useLocation();
   const [isMenupage, setIsMenupage] = useState(false);
+  const [cartExist, setCartExist] = useState(false);
+  const [cartSize, setCartSize] = useState(0);
+  const [discount, setDiscount] = useState(0);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => {
@@ -33,6 +46,30 @@ export default function MainLayout({
       document.body.style.overflow = "scroll";
     }
   };
+
+  useEffect(() => {
+    const updateCartSize = () => {
+      const cartStorage = localStorage.getItem("cart");
+      const cart: CartItem[] = cartStorage ? JSON.parse(cartStorage) : [];
+      setCartSize(cart.length);
+      setCartExist(cart.length > 0);
+      if (cartSize != 0) {
+        let dis = 0;
+        cart.forEach((item) => {
+          dis += Number(item.price) - Number(item.discountPrice);
+        });
+        setDiscount(dis);
+        console.log(dis);
+      }
+    };
+    // initial check for cartSize
+    updateCartSize();
+    // listen for updates across the app
+    window.addEventListener("cartUpdated", updateCartSize);
+    return () => {
+      window.removeEventListener("cartUpdated", updateCartSize);
+    };
+  }, [cartSize]);
 
   useEffect(() => {
     setIsMenupage(location.pathname.endsWith("menu.html"));
@@ -93,8 +130,10 @@ export default function MainLayout({
           </a>
 
           {/* needs improvement for counter */}
-          <a href="cart.html" className={`${!user ? "hidden" : ""}`}>
-            <div className="count-icon">{}</div>
+          <a href="cart.html" className={`${!user ? "hidden" : "flex gap-2"}`}>
+            <div className="count-icon">
+              {cartExist ? String(cartSize) : ""}
+            </div>
             <div className="cart-icon">
               <svg
                 width="24"
@@ -119,7 +158,9 @@ export default function MainLayout({
                 />
               </svg>
             </div>
-            <div className="dis-icon"></div>
+            <div className={`${discount != 0 ? "flex" : "hidden"}`}>
+              {discount.toFixed(2)}
+            </div>
           </a>
         </div>
 

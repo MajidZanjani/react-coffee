@@ -48,6 +48,7 @@ function itemRemove(cartItem: CartItem) {
   } else {
     localStorage.removeItem("cart");
   }
+  window.dispatchEvent(new Event("cartUpdated")); // updates cartSize dynamically
   window.location.reload();
 }
 
@@ -87,6 +88,7 @@ async function orderCart(
 
     localStorage.removeItem("cart");
     storedCart = localStorage.getItem("cart");
+    window.dispatchEvent(new Event("cartUpdated")); // updates cartSize dynamically
     onSuccess();
   } catch (err) {
     onError(err instanceof Error ? err.message : "Failed to place order");
