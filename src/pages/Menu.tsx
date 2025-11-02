@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProductList from "../components/ProductList";
+import ProductList from "./ProductList";
 import { fetchData } from "../api/fetchData";
 import ErrorShow from "../components/ErrorShow";
 
