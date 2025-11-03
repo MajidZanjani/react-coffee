@@ -9,6 +9,8 @@ interface User {
 export default function Login() {
   const [user, setUser] = useState<User>({ login: "", password: "" });
   const [error, setError] = useState<Record<string, string>>({});
+  const [loginErr, setLoginErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
   const [loginMessage, setLoginMessage] = useState<string>("");
 
   const validateLogin = (): boolean => {
@@ -19,9 +21,11 @@ export default function Login() {
         login:
           "Login must start with a letter, at least 3 characters, only English letters.",
       }));
+      setLoginErr(true);
       return false;
     }
     setError((prev) => ({ ...prev, login: "" }));
+    setLoginErr(false);
     return true;
   };
 
@@ -33,9 +37,11 @@ export default function Login() {
         password:
           "Password must be at least 6 characters and include a special character.",
       }));
+      setPasswordErr(true);
       return false;
     }
     setError((prev) => ({ ...prev, password: "" }));
+    setPasswordErr(false);
     return true;
   };
 
@@ -89,10 +95,14 @@ export default function Login() {
             value={user.login}
             onChange={handleChange}
             onBlur={validateLogin}
+            onFocus={() => setLoginErr(false)}
             className="text-xl border border-border-light rounded-xl p-3"
             placeholder="Enter username"
           />
-          <div id="user-error" className="text-red-600">
+          <div
+            id="user-error"
+            className={`text-red-600 ${loginErr ? "" : "hidden"}`}
+          >
             {error.login}
           </div>
         </div>
@@ -105,10 +115,14 @@ export default function Login() {
             value={user.password}
             onChange={handleChange}
             onBlur={validatePassword}
+            onFocus={() => setPasswordErr(false)}
             className="text-xl border border-border-light rounded-xl p-3"
             placeholder="Enter password"
           />
-          <div id="password-error" className="text-red-600">
+          <div
+            id="password-error"
+            className={`text-red-600 ${passwordErr ? "" : "hidden"}`}
+          >
             {error.password}
           </div>
         </div>
