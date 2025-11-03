@@ -127,6 +127,17 @@ export default function MainLayout({
           >
             register
           </a>
+          <a
+            className={`cursor-pointer text-red-700 transition-all duration-400 ease-in-out hover:text-red-400 ${
+              !user ? "hidden" : ""
+            }`}
+            onClick={() => {
+              localStorage.removeItem("user");
+              window.location.reload();
+            }}
+          >
+            Logout
+          </a>
 
           {/* needs improvement for counter */}
           <a href="cart.html" className={`${!user ? "hidden" : "flex gap-2"}`}>
