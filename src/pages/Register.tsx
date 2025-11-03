@@ -66,8 +66,25 @@ export default function Register() {
   });
 
   const [streets, setStreets] = useState<string[]>([]);
-  const [error, setError] = useState<Record<string, string>>({});
   const [registerMessage, setRegisterMessage] = useState<string>("");
+  const error = {
+    login:
+      "Login must start with a letter, at least 3 characters, only English letters.",
+    password:
+      "Password must be at least 6 characters and include a special character.",
+    confirmPassword: "Passwords do not match, or field is empty.",
+    city: "Please select a city.",
+    street: "Please select a street.",
+    houseNumber: "House number must be greater than 1.",
+    paymentMethod: "Select cash or card.",
+  };
+  const [loginErr, setLoginErr] = useState(false);
+  const [passwordErr, setPasswordErr] = useState(false);
+  const [confirmPasswordErr, setConfirmpasswordErr] = useState(false);
+  const [cityErr, setCityErr] = useState(false);
+  const [streetErr, setStreetErr] = useState(false);
+  const [houseErr, setHouseErr] = useState(false);
+  const [paymethodErr, setPayMethodErr] = useState(false);
 
   useEffect(() => {
     if (user.city && streetsByCity[user.city]) {
@@ -81,71 +98,66 @@ export default function Register() {
   const validateLogin = (): boolean => {
     const pattern = /^[A-Za-z][A-Za-z]{2,}$/;
     if (!pattern.test(user.login)) {
-      setError((prev) => ({
-        ...prev,
-        login:
-          "Login must start with a letter, at least 3 characters, only English letters.",
-      }));
+      setLoginErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, login: "" }));
+    setLoginErr(false);
     return true;
   };
 
   const validatePassword = (): boolean => {
     const pattern = /^(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
     if (!pattern.test(user.password)) {
-      setError((prev) => ({
-        ...prev,
-        password:
-          "Password must be at least 6 characters and include a special character.",
-      }));
+      setPasswordErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, password: "" }));
+    setPasswordErr(false);
     return true;
   };
 
   const validateConfirmPassword = (): boolean => {
     if (user.password !== user.confirmPassword || !user.confirmPassword) {
-      setError((prev) => ({
-        ...prev,
-        confirmPassword: "Passwords do not match, or field is empty.",
-      }));
+      setConfirmpasswordErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, confirmPassword: "" }));
+    setConfirmpasswordErr(false);
     return true;
   };
 
   const validateCity = (): boolean => {
     if (!user.city) {
-      setError((prev) => ({ ...prev, city: "Please select a city." }));
+      setCityErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, city: "" }));
+    setCityErr(false);
     return true;
   };
 
   const validateStreet = (): boolean => {
     if (!user.street) {
-      setError((prev) => ({ ...prev, street: "Please select a street." }));
+      setStreetErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, street: "" }));
+    setStreetErr(false);
     return true;
   };
 
   const validateHouse = (): boolean => {
     const num = parseInt(user.houseNumber, 10);
     if (isNaN(num) || num <= 1) {
-      setError((prev) => ({
-        ...prev,
-        houseNumber: "House number must be greater than 1.",
-      }));
+      setHouseErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, houseNumber: "" }));
+    setHouseErr(false);
+    return true;
+  };
+
+  const validatePaymentMethod = (): boolean => {
+    if (!user.paymentMethod) {
+      setPayMethodErr(true);
+      return false;
+    }
+    setPayMethodErr(false);
     return true;
   };
 
@@ -156,7 +168,8 @@ export default function Register() {
       validateConfirmPassword() &&
       validateCity() &&
       validateStreet() &&
-      validateHouse()
+      validateHouse() &&
+      validatePaymentMethod()
     );
   };
 
@@ -224,10 +237,15 @@ export default function Register() {
               value={user.login}
               onChange={handleChange}
               onBlur={validateLogin}
+              onFocus={() => setLoginErr(false)}
               className="text-xl border border-border-light rounded-xl p-3"
               placeholder="Enter username"
             />
-            {error.login && <div className="text-red-500">{error.login}</div>}
+            {error.login && (
+              <div className={`text-red-600 ${loginErr ? "" : "hidden"}`}>
+                {error.login}
+              </div>
+            )}
           </div>
 
           {/* Password */}
@@ -240,11 +258,14 @@ export default function Register() {
               value={user.password}
               onChange={handleChange}
               onBlur={validatePassword}
+              onFocus={() => setPasswordErr(false)}
               className="text-xl border border-border-light rounded-xl p-3"
               placeholder="Enter password"
             />
             {error.password && (
-              <div className="text-red-500">{error.password}</div>
+              <div className={`text-red-600 ${passwordErr ? "" : "hidden"}`}>
+                {error.password}
+              </div>
             )}
           </div>
 
@@ -258,11 +279,16 @@ export default function Register() {
               value={user.confirmPassword}
               onChange={handleChange}
               onBlur={validateConfirmPassword}
+              onFocus={() => setConfirmpasswordErr(false)}
               className="text-xl border border-border-light rounded-xl p-3"
               placeholder="Confirm password"
             />
             {error.confirmPassword && (
-              <div className="text-red-500">{error.confirmPassword}</div>
+              <div
+                className={`text-red-600 ${confirmPasswordErr ? "" : "hidden"}`}
+              >
+                {error.confirmPassword}
+              </div>
             )}
           </div>
         </div>
@@ -277,6 +303,7 @@ export default function Register() {
               value={user.city}
               onChange={handleChange}
               onBlur={validateCity}
+              onFocus={() => setCityErr(false)}
               className="text-xl border border-border-light rounded-xl p-3"
             >
               <option value="">Select City</option>
@@ -284,7 +311,11 @@ export default function Register() {
               <option value="Batumi">Batumi</option>
               <option value="Kutaisi">Kutaisi</option>
             </select>
-            {error.city && <div className="text-red-500">{error.city}</div>}
+            {error.city && (
+              <div className={`text-red-600 ${cityErr ? "" : "hidden"}`}>
+                {error.city}
+              </div>
+            )}
           </div>
 
           {/* Street */}
@@ -296,6 +327,7 @@ export default function Register() {
               value={user.street}
               onChange={handleChange}
               onBlur={validateStreet}
+              onFocus={() => setStreetErr(false)}
               className="text-xl border border-border-light rounded-xl p-3"
             >
               <option value="">Select Street</option>
@@ -305,7 +337,11 @@ export default function Register() {
                 </option>
               ))}
             </select>
-            {error.street && <div className="text-red-500">{error.street}</div>}
+            {error.street && (
+              <div className={`text-red-600 ${streetErr ? "" : "hidden"}`}>
+                {error.street}
+              </div>
+            )}
           </div>
 
           {/* House number */}
@@ -318,11 +354,14 @@ export default function Register() {
               value={user.houseNumber || ""}
               onChange={handleChange}
               onBlur={validateHouse}
+              onFocus={() => setHouseErr(false)}
               className="text-xl border border-border-light rounded-xl p-3"
               placeholder="Enter house number"
             />
             {error.houseNumber && (
-              <div className="text-red-500">{error.houseNumber}</div>
+              <div className={`text-red-600 ${houseErr ? "" : "hidden"}`}>
+                {error.houseNumber}
+              </div>
             )}
           </div>
 
@@ -350,6 +389,11 @@ export default function Register() {
                 />
                 Card
               </label>
+              {error.paymentMethod && (
+                <div className={`text-red-600 ${paymethodErr ? "" : "hidden"}`}>
+                  {error.paymentMethod}
+                </div>
+              )}
             </div>
           </div>
         </div>
