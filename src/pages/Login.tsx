@@ -8,23 +8,21 @@ interface User {
 
 export default function Login() {
   const [user, setUser] = useState<User>({ login: "", password: "" });
-  const [error, setError] = useState<Record<string, string>>({});
   const [loginErr, setLoginErr] = useState(false);
   const [passwordErr, setPasswordErr] = useState(false);
   const [loginMessage, setLoginMessage] = useState<string>("");
-
+  const error = {
+    login:
+      "Login must start with a letter, at least 3 characters, only English letters.",
+    password:
+      "Password must be at least 6 characters and include a special character.",
+  };
   const validateLogin = (): boolean => {
     const pattern = /^[A-Za-z][A-Za-z]{2,}$/;
     if (!pattern.test(user.login)) {
-      setError((prev) => ({
-        ...prev,
-        login:
-          "Login must start with a letter, at least 3 characters, only English letters.",
-      }));
       setLoginErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, login: "" }));
     setLoginErr(false);
     return true;
   };
@@ -32,15 +30,9 @@ export default function Login() {
   const validatePassword = (): boolean => {
     const pattern = /^(?=.*[!@#$%^&*(),.?":{}|<>]).{6,}$/;
     if (!pattern.test(user.password)) {
-      setError((prev) => ({
-        ...prev,
-        password:
-          "Password must be at least 6 characters and include a special character.",
-      }));
       setPasswordErr(true);
       return false;
     }
-    setError((prev) => ({ ...prev, password: "" }));
     setPasswordErr(false);
     return true;
   };
