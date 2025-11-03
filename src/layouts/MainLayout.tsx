@@ -59,7 +59,6 @@ export default function MainLayout({
           dis += Number(item.price) - Number(item.discountPrice);
         });
         setDiscount(dis);
-        console.log(dis);
       }
     };
     // initial check for cartSize
