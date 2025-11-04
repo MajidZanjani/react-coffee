@@ -128,7 +128,7 @@ export default function Cart() {
           </div>
         )}
         {errorMessage && (
-          <span className="text-amber-700 my-16">
+          <span className="text-amber-700 my-16 border border-red-600 rounded-3xl p-4">
             ❌ Something wrong with the server. Please try again.
           </span>
         )}

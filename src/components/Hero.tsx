@@ -8,15 +8,11 @@ export default function Hero() {
         />
       </video>
       <div className="absolute top-0 xl:left-20 sm:top-10 md:top-0 md:leading-10 lg:top-10 text-text-light px-10 w-full sm:w-3/4 lg:w-2/3 xl:w-1/2">
-        <h1 className="pt-10">
-          <span className="text-text-accent text-xl font-bold md:text-5xl lg:text-6xl xl:text-7xl italic">
-            Enjoy{" "}
-          </span>
-          <span className="text-xl md:text-5xl lg:text-6xl xl:text-7xl  font-bold ">
-            premium coffee at our charming cafe
-          </span>
+        <h1 className="pt-4 xs:pt-10 font-bold xs:text-2xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <span className="text-text-accent italic">Enjoy </span>
+          <span className="">premium coffee at our charming cafe</span>
         </h1>
-        <div className="hidden mt-2 xl:my-5 2xl:my-10 2xl:w-2/3 px-5 py-2 text-sm md:flex xl:text-lg text-text-dark tracking-wide bg-background-body/70 rounded-2xl">
+        <div className="hidden md:flex mt-2 xl:my-5 2xl:my-10 2xl:w-2/3 px-5 py-2 text-sm xl:text-lg text-text-dark tracking-wide bg-background-body/70 rounded-2xl">
           With its inviting atmosphere and delicious coffee options, the Coffee
           House Resource is a popular destination for coffee lovers and those
           seeking a warm and inviting space to enjoy their favorite beverage.

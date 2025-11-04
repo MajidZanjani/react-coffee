@@ -333,7 +333,7 @@ export default function Modal({ id, onClose }: ModalProps) {
                 <a href="login.html">
                   <button
                     id="login"
-                    className="px-6 py-2 border-2 border-gray-700 rounded-full font-semibold hover:bg-gray-700 hover:text-white transition-all"
+                    className="px-6 py-2 border-2 border-gray-700 rounded-full font-semibold hover:bg-background-container hover:text-text-light transition-all"
                   >
                     Login
                   </button>

@@ -15,6 +15,7 @@
   --color-github: #1f883d;
   --color-footer: #d3c7bd;
   --color-coffee: #a98964;
+  --breakpoint-xs: 400px;
 }
 :root {
   --text-dark: #403f3d;
