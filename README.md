@@ -17,6 +17,6 @@ This new version of Coffee House has some improvements.
 - Add-to-cart disabled on no-user
 - ..and some more like improving element styles
 
-Screenshot: ![ScreenShot](screenshot.png)
+![ScreenShot](screenshot.png)
 
-Deployed: [react-coffee](https://coffee-ex.netlify.app/)
+Deployment: [react-coffee](https://coffee-ex.netlify.app/)
