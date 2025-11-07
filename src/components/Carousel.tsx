@@ -21,7 +21,7 @@ export function Carousel() {
   const intervalRef = useRef<number | undefined>(undefined);
 
   const startAutoSlide = () => {
-    stopAutoSlide(); // clear any existing interval
+    stopAutoSlide(); // clear existing interval
     intervalRef.current = window.setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
@@ -33,7 +33,7 @@ export function Carousel() {
 
   useEffect(() => {
     startAutoSlide();
-    return stopAutoSlide; // cleanup on unmount
+    // return stopAutoSlide; // cleanup on unmount
   }, []);
 
   const goToSlide = (index: number) => {

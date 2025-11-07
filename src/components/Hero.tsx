@@ -12,7 +12,7 @@ export default function Hero() {
           <span className="text-text-accent italic">Enjoy </span>
           <span className="">premium coffee at our charming cafe</span>
         </h1>
-        <div className="hidden md:flex mt-2 xl:my-5 2xl:my-10 2xl:w-2/3 px-5 py-2 text-sm xl:text-lg text-text-dark tracking-wide bg-background-body/70 rounded-2xl">
+        <div className="hidden md:flex mt-2 xl:my-5 2xl:my-10 2xl:w-2/3 px-5 py-2 text-sm xl:text-lg text-text-light tracking-wide rounded-2xl">
           With its inviting atmosphere and delicious coffee options, the Coffee
           House Resource is a popular destination for coffee lovers and those
           seeking a warm and inviting space to enjoy their favorite beverage.

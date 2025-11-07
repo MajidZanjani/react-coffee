@@ -88,7 +88,7 @@ async function orderCart(
 
     localStorage.removeItem("cart");
     storedCart = localStorage.getItem("cart");
-    window.dispatchEvent(new Event("cartUpdated")); // updates cartSize dynamically
+    window.dispatchEvent(new Event("cartUpdated")); // updates cartSize and discount dynamically
     onSuccess();
   } catch (err) {
     onError(err instanceof Error ? err.message : "Failed to place order");

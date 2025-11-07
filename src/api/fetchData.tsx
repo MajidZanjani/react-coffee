@@ -1,4 +1,3 @@
-// fetchData.tsx
 export interface HttpError extends Error {
   status?: number;
   data?: unknown;
@@ -27,7 +26,7 @@ export async function fetchData(
     const response = await fetch(url, options);
 
     if (!response.ok) {
-      // Try to extract backend message safely
+      // Extract backend message
       const errorData = await response.json().catch(() => ({}));
 
       const error: HttpError = new Error(
@@ -40,13 +39,13 @@ export async function fetchData(
 
       error.status = response.status;
       error.data = errorData;
-
       throw error;
     }
 
+    // Return response in when no error accurs.
     return response;
   } catch (error: unknown) {
-    // Log safely and rethrow with correct type
+    // Rethrow err using correct type
     if (error instanceof Error) {
       console.error("Error happened in fetch request:", error.message);
       throw error;

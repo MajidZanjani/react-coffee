@@ -58,6 +58,8 @@ interface CartItem {
 
 export default function Modal({ id, onClose }: ModalProps) {
   const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [selectedSize, setSelectedSize] = useState<string>("s");
   const [selectedAdditives, setSelectedAdditives] = useState<string[]>([]);
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -66,12 +68,20 @@ export default function Modal({ id, onClose }: ModalProps) {
 
   useEffect(() => {
     const loadData = async () => {
-      const result = await fetchData(`products/${id}`, "GET");
-      const data = await result.json();
-      if (!result.ok) {
-        console.log("API error");
-      } else {
+      try {
+        setLoading(true);
+        setError(false);
+        const result = await fetchData(`products/${id}`, "GET");
+        const data = await result.json();
+        if (!result.ok) {
+          throw new Error("API error");
+        }
         setProduct(data.data);
+      } catch (err) {
+        console.log(err);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
     loadData();
@@ -97,8 +107,18 @@ export default function Modal({ id, onClose }: ModalProps) {
     };
   }, []);
 
+  if (loading) {
+    return (
+      <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm">
+        <div className="bg-[#E7D7CC] rounded-3xl p-6 max-w-md w-[90%] text-center">
+          <p className="text-xl font-semibold text-text-dark">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   // Show error modal on fetch errors
-  if (!product)
+  if (error || !product) {
     return (
       <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm">
         <div
@@ -111,12 +131,13 @@ export default function Modal({ id, onClose }: ModalProps) {
           >
             ×
           </button>
-          <h2 className="text-2xl font-bold text-text-dark">
+          <h2 className="text-2xl w-full font-bold text-text-dark">
             Something wrong happened with the server. Please try again.
           </h2>
         </div>
       </div>
     );
+  }
 
   // Calculate userPrice
   const userPrice = parseFloat(
@@ -175,6 +196,7 @@ export default function Modal({ id, onClose }: ModalProps) {
     const cartJSON = localStorage.getItem("cart");
     let cart: CartItem[] = [];
 
+    // add existing cart items if available
     if (cartJSON) {
       try {
         cart = JSON.parse(cartJSON);
@@ -186,10 +208,11 @@ export default function Modal({ id, onClose }: ModalProps) {
         cart = [];
       }
     }
+
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("updated cart: ", cart);
-    window.dispatchEvent(new Event("cartUpdated")); // updates cartSize dynamically
+    window.dispatchEvent(new Event("cartUpdated")); // updates icon cartSize and discount dynamically
     onClose();
   };
 
