@@ -2,7 +2,7 @@ export default function MobileApp() {
   return (
     <div className="mt-10 text-text-dark font-inter flex flex-col lg:flex-row justify-between items-center gap-10">
       <div>
-        <h2 className="font-bold text-2xl lg:text-6xl lg:leading-[4.5rem] mb-5">
+        <h2 className="font-bold text-2xl lg:text-6xl lg:leading-18 mb-5">
           <span className="text-text-accent italic">Download </span>
           <span>
             our apps
