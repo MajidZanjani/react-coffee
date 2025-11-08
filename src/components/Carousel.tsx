@@ -138,7 +138,7 @@ export function Carousel() {
         </div>
 
         {/* Indicators */}
-        <div className="absolute z-30 flex -translate-x-1/2 space-x-3 bottom-5 left-1/2">
+        <div className="absolute z-30 flex -translate-x-1/2 space-x-3 bottom-1 lg:bottom-10 left-1/2">
           {slides.map((_, i) => (
             <button
               key={i}
