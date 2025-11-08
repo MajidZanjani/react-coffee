@@ -56,7 +56,7 @@ export default function ProductList({ products }: ProductListProps) {
           <div
             key={product.id}
             onClick={() => setSelectedId(product.id)}
-            className="group flex flex-col justify-between border border-border-light rounded-2xl p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+            className="group flex flex-col justify-between border border-border-light rounded-2xl p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:-translate-y-2 cursor-pointer"
           >
             <div className="w-full h-60 sm:h-64 md:h-72 lg:h-80 overflow-hidden rounded-xl">
               <img
