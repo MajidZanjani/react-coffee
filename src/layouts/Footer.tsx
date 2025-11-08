@@ -26,7 +26,7 @@ export default function Footer() {
                 <i className="fab fa-linkedin text-2xl">LinkedIn</i>
               </a>
               <a
-                href="https://github.com/MajidZanjani"
+                href="https://github.com/MajidZanjani/react-coffee/tree/coffee-dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-github  transition-all duration-300 ease-in-out hover:scale-125"
