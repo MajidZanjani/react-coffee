@@ -113,7 +113,7 @@ export function Carousel() {
 
       {/* Carousel container */}
       <div className="relative w-full overflow-hidden rounded-lg h-[260px] sm:h-[380px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-        <div className="items-center justify-center">
+        <div className="flex items-center justify-center">
           {favCoffees?.map((coffee: Product, i) => (
             <div
               key={i}
@@ -124,7 +124,7 @@ export function Carousel() {
               <img
                 src={`/assets/images/fav-${coffee.id}.png`}
                 alt={`Slide ${i + 1}`}
-                className="h-5/6 rounded-4xl"
+                className="h-5/6 rounded-4xl block mx-auto"
               />
               <h2>{coffee.name}</h2>
               <h3 className="font-normal text-lg hidden sm:flex">
