@@ -113,27 +113,29 @@ export function Carousel() {
 
       {/* Carousel container */}
       <div className="relative w-full overflow-hidden rounded-lg h-[260px] sm:h-[380px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-        {favCoffees?.map((coffee: Product, i) => (
-          <div
-            key={i}
-            className={`absolute font-inter font-bold h-5/6 text-xl justify-items-center top-0 left-0 w-full transition-opacity duration-700 ease-in-out ${
-              i === current ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={`/assets/images/fav-${coffee.id}.png`}
-              alt={`Slide ${i + 1}`}
-              className="h-5/6 rounded-4xl"
-            />
-            <h2>{coffee.name}</h2>
-            <h3 className="font-normal text-lg hidden sm:flex">
-              {coffee.description}
-            </h3>
-            <h2 className="font-normal text-lg sm:font-bold sm:text-xl">
-              ${coffee.price}
-            </h2>
-          </div>
-        ))}
+        <div className="items-center justify-center">
+          {favCoffees?.map((coffee: Product, i) => (
+            <div
+              key={i}
+              className={`absolute font-inter font-bold h-5/6 text-xl justify-items-center top-0 left-0 w-full transition-opacity duration-700 ease-in-out ${
+                i === current ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <img
+                src={`/assets/images/fav-${coffee.id}.png`}
+                alt={`Slide ${i + 1}`}
+                className="h-5/6 rounded-4xl"
+              />
+              <h2>{coffee.name}</h2>
+              <h3 className="font-normal text-lg hidden sm:flex">
+                {coffee.description}
+              </h3>
+              <h2 className="font-normal text-lg sm:font-bold sm:text-xl">
+                ${coffee.price}
+              </h2>
+            </div>
+          ))}
+        </div>
 
         {/* Indicators */}
         <div className="absolute z-30 flex -translate-x-1/2 space-x-3 bottom-5 left-1/2">
