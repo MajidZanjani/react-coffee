@@ -126,8 +126,8 @@ export function Carousel() {
                 alt={`Slide ${i + 1}`}
                 className="h-5/6 rounded-4xl block mx-auto"
               />
-              <h2>{coffee.name}</h2>
-              <h3 className="font-normal text-lg hidden sm:flex">
+              <h2 className="mt-3">{coffee.name}</h2>
+              <h3 className="font-normal text-lg hidden sm:block mx-auto">
                 {coffee.description}
               </h3>
               <h2 className="font-normal text-lg sm:font-bold sm:text-xl">
