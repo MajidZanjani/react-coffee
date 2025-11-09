@@ -132,17 +132,21 @@ export function Carousel() {
       </h1>
 
       {/* Carousel container */}
-      <div className="relative w-full overflow-hidden rounded-lg h-[260px] sm:h-[380px] md:h-[400px] lg:h-[500px] xl:h-[550px]">
-        <div className="flex items-center justify-center">
+      <div
+        className="relative w-full overflow-hidden rounded-lg h-[260px] sm:h-[380px] md:h-[400px] lg:h-[500px] xl:h-[550px]"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        {/* Slides wrapper */}
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
           {favCoffees?.map((coffee: Product, i) => (
             <div
               key={i}
-              className={`absolute font-inter font-bold h-5/6 text-xl justify-items-center top-0 left-0 w-full transition-opacity duration-700 ease-in-out ${
-                i === current ? "opacity-100" : "opacity-0"
-              }`}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
+              className="w-full shrink-0 flex flex-col items-center justify-center text-center font-inter font-bold"
             >
               <img
                 src={`/assets/images/fav-${coffee.id}.png`}
