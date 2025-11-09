@@ -20,6 +20,9 @@ export function Carousel() {
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | undefined>(undefined);
 
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
   const startAutoSlide = () => {
     stopAutoSlide(); // clear existing interval
     intervalRef.current = window.setInterval(() => {
@@ -33,7 +36,7 @@ export function Carousel() {
 
   useEffect(() => {
     startAutoSlide();
-    // return stopAutoSlide; // cleanup on unmount
+    return stopAutoSlide;
   }, []);
 
   const goToSlide = (index: number) => {
@@ -103,6 +106,23 @@ export function Carousel() {
     loadData();
   }, []);
 
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = () => {
+    const distance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50; // threshold
+    if (distance > minSwipeDistance) {
+      nextSlide(); // swipe left → next
+    } else if (distance < -minSwipeDistance) {
+      prevSlide(); // swipe right → previous
+    }
+  };
+
   return (
     <div className="w-full mt-15">
       <h1 className="font-inter font-bold text-xl sm:text-2xl md:text-4xl lg:text-6xl text-text-dark mb-4 text-center">
@@ -120,6 +140,9 @@ export function Carousel() {
               className={`absolute font-inter font-bold h-5/6 text-xl justify-items-center top-0 left-0 w-full transition-opacity duration-700 ease-in-out ${
                 i === current ? "opacity-100" : "opacity-0"
               }`}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
               <img
                 src={`/assets/images/fav-${coffee.id}.png`}
