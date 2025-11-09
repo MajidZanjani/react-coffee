@@ -133,7 +133,7 @@ export function Carousel() {
 
       {/* Carousel container */}
       <div
-        className="relative w-full overflow-hidden rounded-lg h-[260px] sm:h-[380px] md:h-[400px] lg:h-[500px] xl:h-[550px]"
+        className="relative w-full overflow-hidden rounded-lg"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -153,11 +153,11 @@ export function Carousel() {
                 alt={`Slide ${i + 1}`}
                 className="h-5/6 rounded-4xl block mx-auto"
               />
-              <h2 className="mt-3">{coffee.name}</h2>
-              <h3 className="font-normal text-lg hidden sm:block mx-auto">
+              <h2 className="mt-3 text-3xl">{coffee.name}</h2>
+              <h3 className="font-normal text-xl mx-auto">
                 {coffee.description}
               </h3>
-              <h2 className="font-normal text-lg sm:font-bold sm:text-xl">
+              <h2 className="text-lg font-bold mb-5 sm:text-xl">
                 ${coffee.price}
               </h2>
             </div>
@@ -165,7 +165,7 @@ export function Carousel() {
         </div>
 
         {/* Indicators */}
-        <div className="absolute z-30 flex -translate-x-1/2 space-x-3 bottom-1 lg:bottom-10 left-1/2">
+        <div className="absolute z-30 flex -translate-x-1/2 space-x-3 bottom-0 left-1/2">
           {slides.map((_, i) => (
             <button
               key={i}
