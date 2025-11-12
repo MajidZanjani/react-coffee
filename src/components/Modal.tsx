@@ -212,7 +212,7 @@ export default function Modal({ id, onClose }: ModalProps) {
     cart.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("updated cart: ", cart);
-    window.dispatchEvent(new Event("cartUpdated")); // updates icon cartSize and discount dynamically
+    window.dispatchEvent(new Event("cartUpdated")); // sends an event to the target (cart icon) and updates cartSize and discount dynamically
     onClose();
   };
 
