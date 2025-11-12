@@ -5,6 +5,7 @@ import MainLayout from "../layouts/MainLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Cart from "../pages/Cart";
+import PageNotFound from "../pages/PageNotFound";
 
 export default function AppRouter() {
   return (
@@ -16,6 +17,7 @@ export default function AppRouter() {
           <Route path="login.html" element={<Login />} />
           <Route path="register.html" element={<Register />} />
           <Route path="cart.html" element={<Cart />} />
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </MainLayout>
     </BrowserRouter>
