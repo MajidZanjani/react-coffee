@@ -100,7 +100,7 @@ export default function Header() {
         </a>
         <a
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          href="#footer"
+          href="#contact"
         >
           Contact us
         </a>
