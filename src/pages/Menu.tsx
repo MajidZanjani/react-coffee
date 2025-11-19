@@ -75,6 +75,7 @@ export default function Menu() {
   }
 
   useEffect(() => {
+    console.log("handleresize invoked");
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setIsMobile(false);
@@ -87,7 +88,7 @@ export default function Menu() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [selectedCategory]);
 
   return (
     <div className="text-center mt-0">
