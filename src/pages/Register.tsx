@@ -200,7 +200,7 @@ export default function Register() {
       localStorage.setItem("user", JSON.stringify(payload));
       setRegisterMessage("✅ Registration successful! Redirecting...");
       setTimeout(() => {
-        window.location.href = "menu.html";
+        window.location.href = "menu";
       }, 3000);
     } catch (err: unknown) {
       const error = err as HttpError;

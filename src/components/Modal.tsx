@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchData } from "../api/fetchData";
+import { Link } from "react-router-dom";
 
 interface Size {
   size: string;
@@ -353,14 +354,14 @@ export default function Modal({ id, onClose }: ModalProps) {
                   Add to cart
                 </button>
               ) : (
-                <a href="login.html">
+                <Link to="login.html">
                   <button
                     id="login"
                     className="px-6 py-2 border-2 border-gray-700 rounded-full font-semibold hover:bg-background-container hover:text-text-light transition-all"
                   >
                     Login
                   </button>
-                </a>
+                </Link>
               )}
             </div>
           </div>

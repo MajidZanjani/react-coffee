@@ -66,7 +66,7 @@ export default function Header() {
   }, [cartSize]);
 
   useEffect(() => {
-    setIsMenupage(location.pathname.endsWith("menu.html"));
+    setIsMenupage(location.pathname.endsWith("menu"));
   }, [location.pathname]);
   return (
     <header className="p-4 h-20 grid grid-flow-col gap-4 bg-text-light text-text-dark font-bold">
@@ -80,47 +80,47 @@ export default function Header() {
         id="main-menu"
         className="hidden content-center md:grid grid-flow-col gap-2 justify-items-center"
       >
-        <a
+        <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          href="#carousel"
+          to="#carousel"
         >
           Favorite coffee
-        </a>
-        <a
+        </Link>
+        <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          href="#about"
+          to="#about"
         >
           About
-        </a>
-        <a
+        </Link>
+        <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          href="#apps"
+          to="#apps"
         >
           Mobile app
-        </a>
-        <a
+        </Link>
+        <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          href="#contact"
+          to="#contact"
         >
           Contact us
-        </a>
-        <a
+        </Link>
+        <Link
           className={`transition-all duration-400 ease-in-out hover:text-text-accent ${
             user ? "hidden" : ""
           }`}
-          href="login.html"
+          to="login"
         >
           Login
-        </a>
-        <a
+        </Link>
+        <Link
           className={`transition-all duration-400 ease-in-out hover:text-text-accent ${
             user ? "hidden" : ""
           }`}
-          href="register.html"
+          to="register"
         >
           register
-        </a>
-        <a
+        </Link>
+        <Link
           className={`cursor-pointer text-red-700 transition-all duration-400 ease-in-out hover:text-red-400 ${
             !user ? "hidden" : ""
           }`}
@@ -128,12 +128,13 @@ export default function Header() {
             localStorage.removeItem("user");
             window.location.reload();
           }}
+          to="/"
         >
           Logout
-        </a>
+        </Link>
 
         {/* needs improvement for counter */}
-        <a href="cart.html" className={`${!user ? "hidden" : "flex gap-2"}`}>
+        <Link to="cart" className={`${!user ? "hidden" : "flex gap-2"}`}>
           <div className="count-icon">{cartExist ? String(cartSize) : ""}</div>
           <div className="cart-icon">
             <svg
@@ -162,12 +163,12 @@ export default function Header() {
           <div className={`${discount != 0 ? "flex" : "hidden"}`}>
             {discount.toFixed(2)}
           </div>
-        </a>
+        </Link>
       </div>
 
       <div className="hidden content-center md:grid grid-flow-col justify-items-end">
         <Link
-          to="menu.html"
+          to="menu"
           className={`${
             isMenupage ? "pointer-events-none text-gray-400" : ""
           } transition-all duration-400 ease-in-out hover:text-text-accent`}
@@ -204,39 +205,39 @@ export default function Header() {
         >
           <ul className="flex flex-col items-center mt-40 gap-6">
             <li>
-              <a href="#carousel" onClick={toggleMenu}>
+              <Link to="#carousel" onClick={toggleMenu}>
                 Favorite coffee
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#about" onClick={toggleMenu}>
+              <Link to="#about" onClick={toggleMenu}>
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#apps" onClick={toggleMenu}>
+              <Link to="#apps" onClick={toggleMenu}>
                 Mobile app
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#footer" onClick={toggleMenu}>
+              <Link to="#footer" onClick={toggleMenu}>
                 Contact us
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="login.html" onClick={toggleMenu}>
+              <Link to="login" onClick={toggleMenu}>
                 Login
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="register.html" onClick={toggleMenu}>
+              <Link to="register" onClick={toggleMenu}>
                 Register
-              </a>
+              </Link>
             </li>
             <li className="flex items-center gap-2">
-              <a href="menu.html" onClick={toggleMenu}>
+              <Link to="menu" onClick={toggleMenu}>
                 Menu
-              </a>
+              </Link>
               <img
                 src="/assets/images/coffee-cup.png"
                 alt="coffee cup"
@@ -244,9 +245,9 @@ export default function Header() {
               />
             </li>
             <li className="flex items-center gap-2">
-              <a href="cart.html" className="cart-el-side" onClick={toggleMenu}>
+              <Link to="cart" className="cart-el-side" onClick={toggleMenu}>
                 Cart
-              </a>
+              </Link>
               <svg
                 width="24"
                 height="24"

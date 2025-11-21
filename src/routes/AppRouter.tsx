@@ -13,10 +13,10 @@ export default function AppRouter() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="menu.html" element={<Menu />} />
-          <Route path="login.html" element={<Login />} />
-          <Route path="register.html" element={<Register />} />
-          <Route path="cart.html" element={<Cart />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="cart" element={<Cart />} />
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </MainLayout>

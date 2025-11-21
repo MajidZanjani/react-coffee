@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Hero() {
   return (
     <div className="relative rounded-4xl text-left overflow-hidden max-h-160">
@@ -18,7 +20,7 @@ export default function Hero() {
           seeking a warm and inviting space to enjoy their favorite beverage.
         </div>
 
-        <a href="menu.html" className="content-center">
+        <Link to="menu" className="content-center">
           <div className="mt-3 h-8 pt-1 md:h-12 w-full sm:w-full md:w-2xs xl:mt-10 xl:w-60 text-text-dark bg-background-body group rounded-4xl flex justify-center">
             <div className="flex flex-row gap-2">
               Menu
@@ -29,7 +31,7 @@ export default function Hero() {
               />
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );

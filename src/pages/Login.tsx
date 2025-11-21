@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { fetchData, type HttpError } from "../api/fetchData";
+import { Link } from "react-router-dom";
 
 interface User {
   login: string;
@@ -58,7 +59,7 @@ export default function Login() {
       console.log(JSON.stringify(data.data.user));
 
       setLoginMessage("✅ Login successful! Redirecting...");
-      setTimeout(() => (window.location.href = "menu.html"), 3000);
+      setTimeout(() => (window.location.href = "menu"), 3000);
     } catch (err: unknown) {
       const httpError = err as HttpError;
       if (httpError.status == 401) {
@@ -134,12 +135,12 @@ export default function Login() {
           <h1>Don't have a user name?</h1>
           <h1>
             Register as a new user{" "}
-            <a
-              href="register.html"
+            <Link
+              to="register"
               className="transition-all duration-300 ease-in-out text-red-500 hover:text-text-accent"
             >
               here
-            </a>
+            </Link>
             .
           </h1>
         </div>
