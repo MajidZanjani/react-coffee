@@ -82,25 +82,25 @@ export default function Header() {
       >
         <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          to="#carousel"
+          to="/#carousel"
         >
           Favorite coffee
         </Link>
         <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          to="#about"
+          to="/#about"
         >
           About
         </Link>
         <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          to="#apps"
+          to="/#apps"
         >
           Mobile app
         </Link>
         <Link
           className="transition-all duration-400 ease-in-out hover:text-text-accent"
-          to="#contact"
+          to="/#contact"
         >
           Contact us
         </Link>

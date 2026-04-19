@@ -6,10 +6,12 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Cart from "../pages/Cart";
 import PageNotFound from "../pages/PageNotFound";
+import ScrollToHash from "../layouts/ScrollToHash";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
+      <ScrollToHash />
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />

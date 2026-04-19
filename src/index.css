@@ -28,6 +28,9 @@
   --github: #1f883d;
   --footer: #d3c7bd;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: "Inter", sans-serif;
 }

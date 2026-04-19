@@ -48,7 +48,7 @@ export default function Menu() {
   const storedUser = localStorage.getItem("user");
   const user: User | null = storedUser ? JSON.parse(storedUser) : null;
   const [isMobile, setIsMobile] = useState(
-    window.innerWidth > 768 ? true : false
+    window.innerWidth > 768 ? true : false,
   );
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function Menu() {
         console.log("API error");
         setProducts([]);
       } else {
-        setProducts(data.data);
+        setProducts(data);
       }
     };
     loadData();
@@ -70,7 +70,7 @@ export default function Menu() {
   if (products) {
     filteredProducts = products.filter(
       (product) =>
-        product.category.toLowerCase() === selectedCategory.toLowerCase()
+        product.category.toLowerCase() === selectedCategory.toLowerCase(),
     );
   }
 
